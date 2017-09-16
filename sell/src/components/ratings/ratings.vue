@@ -62,6 +62,7 @@
   import {formatDate} from '../../common/js/date'
   import BScroll from 'better-scroll'
   import shopcart from '../../components/shopcart/shopcart.vue'
+  const response = require('../../common/data/ratings.json')
 
   const ALL = 2
   const ERR_OK = 0
@@ -122,21 +123,33 @@
       }
     },
     created(){
-      this.$http.get('/api/ratings').then((response) => {
-        let res = response.body
-        if (res.errNo === ERR_OK) {
-          this.ratings = res.data
-          this.$nextTick(() => {
-            if (!this.scroll) {
-              this.scroll = new BScroll(this.$refs.ratings, {
-                click: true
-              })
-            } else {
-              this.scroll.refresh()
-            }
-          })
-        }
-      })
+//      this.$http.get('/api/ratings').then((response) => {
+//        let res = response.body
+//        if (res.errNo === ERR_OK) {
+//          this.ratings = res.data
+//          this.$nextTick(() => {
+//            if (!this.scroll) {
+//              this.scroll = new BScroll(this.$refs.ratings, {
+//                click: true
+//              })
+//            } else {
+//              this.scroll.refresh()
+//            }
+//          })
+//        }
+//      })
+      if (response.errNo === ERR_OK) {
+        this.ratings = response.data
+        this.$nextTick(() => {
+          if (!this.scroll) {
+            this.scroll = new BScroll(this.$refs.ratings, {
+              click: true
+            })
+          } else {
+            this.scroll.refresh()
+          }
+        })
+      }
     }
   }
 </script>

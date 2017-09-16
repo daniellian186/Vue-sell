@@ -21,6 +21,7 @@
 <script>
   import {urlParse} from './common/js/util.js'
   import header from '@/components/header/header.vue'
+  const response = require('./common/data/seller.json')
 
   const ERR_OK = 0
 
@@ -40,14 +41,17 @@
     },
     methods: {},
     created(){
-      this.$http.get('/api/seller?id=' + this.seller.id).then(
-        (response) => {
-          var res = response.body
-          if (res.errNo === ERR_OK) {
-            this.seller = Object.assign({}, this.seller, res.data)
-          }
-        }
-      )
+//       this.$http.get('/api/seller?id=' + this.seller.id).then(
+//        (response) => {
+//          var res = response.body
+//          if (res.errNo === ERR_OK) {
+//            this.seller = Object.assign({}, this.seller, res.data)
+//          }
+//        }
+//      )
+      if (response.errNo === ERR_OK) {
+        this.seller = Object.assign({}, this.seller, response.data)
+      }
     }
   }
 

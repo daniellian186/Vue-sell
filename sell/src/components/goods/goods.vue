@@ -50,6 +50,7 @@
   import shopcart from '../../components/shopcart/shopcart.vue'
   import cartcontrol from '../cartcontrol/cartcontrol.vue'
   import food from '../../components/food/food.vue'
+  const response = require('../../common/data/goods.json')
 
   const ERR_OK = 0
   export default {
@@ -136,19 +137,26 @@
       }
     },
     created(){
-      this.$http.get('/api/goods').then(
-        response => {
-          let res = response.body
-          if (res.errNo === ERR_OK) {
-            this.goods = res.data
-            // vue拿到数据，更新DOM的函数
-            this.$nextTick(() => {
-              this._initScroll()
-              this._calculateHeight()
-            })
-          }
-        })
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+//      this.$http.get('/api/goods').then(
+//        response => {
+//          let res = response.body
+//          if (res.errNo === ERR_OK) {
+//            this.goods = res.data
+//            // vue拿到数据，更新DOM的函数
+//            this.$nextTick(() => {
+//              this._initScroll()
+//              this._calculateHeight()
+//            })
+//          }
+//        })
+      if (response.errNo === ERR_OK) {
+        this.goods = response.data
+        this.$nextTick(() => {
+          this._initScroll()
+          this._calculateHeight()
+        })
+      }
     }
   }
 </script>
